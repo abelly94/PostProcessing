@@ -4,11 +4,6 @@ import PIL
 import os
 
 
-#BASE_DIR = "C:/"
-
-
-picture_arrays = []
-
 
 def get_file_list(projectdir):
     files = []
@@ -60,3 +55,7 @@ def blend_pics():
     blended = get_median_values(pic_arrays)
 
     make_new_photo(blended)
+
+
+if __name__ == '__main__':
+    blend_pics()
