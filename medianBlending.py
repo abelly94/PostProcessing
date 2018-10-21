@@ -34,6 +34,13 @@ def process_picture(filename):
     photo.close()
 
 
+def get_median_values(pic_arrays):
+    mixed_array = np.stack(pic_arrays, axis=3)
+    medians = np.median(mixed_array, 3)
+    final_pixels = medians.astype('uint8', casting='unsafe', copy=False)
+    return final_pixels
+
+
 def primaryPicture(path):
     pic = PIL.Image.open(path)
     w,h = pic.size
