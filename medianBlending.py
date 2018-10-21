@@ -11,6 +11,16 @@ green_band = []
 blue_band = []
 
 
+def get_file_list(dir):
+    files = []
+    for pic in os.listdir(dir):
+        if os.path.isfile(os.path.join(dir,pic)):
+            files.append(pic)
+        else:
+            pass
+    return(files)
+
+
 def primaryPicture(path):
     pic = PIL.Image.open(path)
     w,h = pic.size
