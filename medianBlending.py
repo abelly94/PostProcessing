@@ -6,9 +6,6 @@ import os
 
 #BASE_DIR = "C:/"
 
-red_band = []
-green_band = []
-blue_band = []
 
 picture_arrays = []
 
@@ -39,46 +36,6 @@ def get_median_values(pic_arrays):
     medians = np.median(mixed_array, 3)
     final_pixels = medians.astype('uint8', casting='unsafe', copy=False)
     return final_pixels
-
-
-def primaryPicture(path):
-    pic = PIL.Image.open(path)
-    w,h = pic.size
-    pixLocation = [(y,x) for x in range(h) for y in range(w)]
-    bands = pic.getdata()
-    for pixel in bands:
-        red_band.append([pixel[0]])
-        green_band.append([pixel[1]])
-        blue_band.append([pixel[2]])
-    pic.close()
-    return()
-
-
-def add_bands(picPath):
-    mypath = os.path.join(BASE_DIR,picPath)
-    pic = PIL.Image.open(mypath)
-    w,h = pic.size
-    if (w*h) == len(red_band):
-        pass
-    else:
-        print("This picture is a different size, it can not be blended with the primary photo")
-        return()
-    bands = pic.getdata()
-    for i,pixel in enumerate(bands):
-        red_band[i].append(pixel[0])
-        green_band[i].append(pixel[1])
-        blue_band[i].append(pixel[2])
-    return()
-
-
-def median_pixels(red,green,blue):
-    corrected_pixels = []
-    for i in xrange(len(red)):
-        r = numpy.median(red[i])
-        g = numpy.median(green[i])
-        b = numpy.median(blue[i])
-        corrected_pixels.append((r,g,b))
-    return corrected_pixels
 
 
 def make_new_photo(pixel_array):
