@@ -1,13 +1,8 @@
 
 import numpy as np
-import PIL
+from PIL import Image
 import os
 
-
-#BASE_DIR = "C:/"
-
-
-picture_arrays = []
 
 
 def get_file_list(projectdir):
@@ -22,10 +17,7 @@ def get_file_list(projectdir):
 
 
 def process_picture(filename):
-    try:
-        photo = PIL.Image.open(filename)
-    except:
-        print("There was an issue with file {0}".format(filename))
+    photo = Image.open(filename)
     pixels = np.array(photo)
     photo.close()
     return pixels
@@ -39,15 +31,15 @@ def get_median_values(pic_arrays):
 
 
 def make_new_photo(pixel_array, targetdir):
-    image_path = os.path.join(targetdir,"medianBlended.JPG")
-    newpic = PIL.Image.fromarray(pixel_array)
+    image_path = os.path.join(targetdir, "medianBlended.JPG")
+    newpic = Image.fromarray(pixel_array)
     newpic.save(image_path, quality=90)
     return()
 
 
 def blend_pics():
     # find all pictures in selected directory
-    mydir = raw_input("Where are the pictures located")
+    mydir = raw_input("Where are the pictures located ")
     pictures = get_file_list(mydir)
 
     # gather all of the picture arrays
@@ -59,4 +51,8 @@ def blend_pics():
     # blend the pictures together by selecting the median pixel value
     blended = get_median_values(pic_arrays)
 
-    make_new_photo(blended)
+    make_new_photo(blended, mydir)
+
+
+if __name__ == '__main__':
+    blend_pics()
