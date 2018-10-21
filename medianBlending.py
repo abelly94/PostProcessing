@@ -1,5 +1,8 @@
 
 import numpy
+import PIL
+import os
+
 
 BASE_DIR = r'F:/WASA pics/IOL/Camera 2/median and layer testing/'
 
@@ -7,9 +10,10 @@ red_band = []
 green_band = []
 blue_band = []
 
+
 def primaryPicture(path):
-    pic = Image.open(path)
-    w,h = f.size
+    pic = PIL.Image.open(path)
+    w,h = pic.size
     pixLocation = [(y,x) for x in range(h) for y in range(w)]
     bands = pic.getdata()
     for pixel in bands:
@@ -19,9 +23,10 @@ def primaryPicture(path):
     pic.close()
     return()
 
+
 def add_bands(picPath):
     mypath = os.path.join(BASE_DIR,picPath)
-    pic = Image.open(mypath)
+    pic = PIL.Image.open(mypath)
     w,h = pic.size
     if (w*h) == len(red_band):
         pass
@@ -35,22 +40,25 @@ def add_bands(picPath):
         blue_band[i].append(pixel[2])
     return()
 
+
 def median_pixels(red,green,blue):
     corrected_pixels = []
     for i in xrange(len(red)):
         r = numpy.median(red[i])
         g = numpy.median(green[i])
         b = numpy.median(blue[i])
-        corrected_pixels.append(r,g,b)
+        corrected_pixels.append((r,g,b))
     return corrected_pixels
+
 
 def make_new_photo(pixels):
     image_path = os.path.join(BASE_DIR,"medianBlended.JPG")
-    newpic = Image.new("RGB",(5120,3840))
+    newpic = PIL.Image.new("RGB",(5120,3840))
     newpic.putdata(pixels)
     newpic.save(image_path)
     print("enhanced photo saved at {0}".format(image_path))
     return()
+
 
 def mainloop():
     pixLocation = []
