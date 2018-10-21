@@ -88,3 +88,4 @@ if __name__ == '__main__':
         filepath = os.path.join(mydir, 'blended' , basename)
         make_new_photo(newpic, filepath)
         counter += 1
+
