@@ -1,5 +1,5 @@
 
-import numpy
+import numpy as np
 import PIL
 import os
 
@@ -10,15 +10,28 @@ red_band = []
 green_band = []
 blue_band = []
 
+picture_arrays = []
+
 
 def get_file_list(dir):
     files = []
     for pic in os.listdir(dir):
-        if os.path.isfile(os.path.join(dir,pic)):
-            files.append(pic)
+        fullpath = os.path.join(dir,pic)
+        if os.path.isfile(fullpath):
+            files.append(fullpath)
         else:
             pass
-    return(files)
+    return files
+
+
+def process_picture(filename):
+    try:
+        photo = PIL.Image.open(filename)
+    except:
+        print("There was an issue with file {0}".format(filename))
+    pixels = np.array(photo)
+    picture_arrays.append(pixels)
+    photo.close()
 
 
 def primaryPicture(path):
