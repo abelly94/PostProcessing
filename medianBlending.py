@@ -81,12 +81,10 @@ def median_pixels(red,green,blue):
     return corrected_pixels
 
 
-def make_new_photo(pixels):
+def make_new_photo(pixel_array):
     image_path = os.path.join(BASE_DIR,"medianBlended.JPG")
-    newpic = PIL.Image.new("RGB",(5120,3840))
-    newpic.putdata(pixels)
-    newpic.save(image_path)
-    print("enhanced photo saved at {0}".format(image_path))
+    newpic = PIL.Image.fromarray(pixel_array)
+    newpic.save(image_path, quality=90)
     return()
 
 
