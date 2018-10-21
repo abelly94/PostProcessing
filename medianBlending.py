@@ -4,7 +4,7 @@ import PIL
 import os
 
 
-BASE_DIR = r'F:/WASA pics/IOL/Camera 2/median and layer testing/'
+#BASE_DIR = "C:/"
 
 red_band = []
 green_band = []
@@ -13,10 +13,10 @@ blue_band = []
 picture_arrays = []
 
 
-def get_file_list(dir):
+def get_file_list(projectdir):
     files = []
-    for pic in os.listdir(dir):
-        fullpath = os.path.join(dir,pic)
+    for pic in os.listdir(projectdir):
+        fullpath = os.path.join(projectdir, pic)
         if os.path.isfile(fullpath):
             files.append(fullpath)
         else:
