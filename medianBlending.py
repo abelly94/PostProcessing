@@ -34,6 +34,13 @@ def process_picture(filename):
     photo.close()
 
 
+def get_median_values(pic_arrays):
+    mixed_array = np.stack(pic_arrays, axis=3)
+    medians = np.median(mixed_array, 3)
+    final_pixels = medians.astype('uint8', casting='unsafe', copy=False)
+    return final_pixels
+
+
 def primaryPicture(path):
     pic = PIL.Image.open(path)
     w,h = pic.size
@@ -74,12 +81,10 @@ def median_pixels(red,green,blue):
     return corrected_pixels
 
 
-def make_new_photo(pixels):
+def make_new_photo(pixel_array):
     image_path = os.path.join(BASE_DIR,"medianBlended.JPG")
-    newpic = PIL.Image.new("RGB",(5120,3840))
-    newpic.putdata(pixels)
-    newpic.save(image_path)
-    print("enhanced photo saved at {0}".format(image_path))
+    newpic = PIL.Image.fromarray(pixel_array)
+    newpic.save(image_path, quality=90)
     return()
 
 
